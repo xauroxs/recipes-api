@@ -1,9 +1,18 @@
 import { Module } from '@nestjs/common';
 
 import { RecipesModule } from './recipes/recipes.module';
+import { ConfigModule } from '@nestjs/config';
+
+import configValidationSchema from './config.schema';
 
 @Module({
-  imports: [RecipesModule],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: ['.env'],
+      validationSchema: configValidationSchema,
+    }),
+    RecipesModule,
+  ],
   controllers: [],
   providers: [],
 })
